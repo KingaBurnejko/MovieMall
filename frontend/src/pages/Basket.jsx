@@ -47,7 +47,7 @@ function Basket() {
                   <td>{film.title}</td>
                   <td>{film.price.toFixed(2)} PLN</td>
                   <td>
-                    <button 
+                    <button
                       onClick={async () => {
                         await axios.delete(`http://localhost:8080/api/basket/delete/${film.id}`, {
                           withCredentials: true

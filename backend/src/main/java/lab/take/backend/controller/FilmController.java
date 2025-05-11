@@ -3,6 +3,7 @@ package lab.take.backend.controller;
 import jakarta.servlet.http.HttpSession;
 import lab.take.backend.model.Film;
 import lab.take.backend.repository.FilmRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,12 +50,13 @@ public class FilmController {
                 (List<Long>) session.getAttribute("basket")
         ).orElse(new ArrayList<>());
 
-        if (!basket.contains(filmId)) {
+        if (basket.contains(filmId)) {
+            return ResponseEntity.status(HttpStatus.OK).body("Film is already in the basket");
+        } else {
             basket.add(filmId);
             session.setAttribute("basket", basket);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Added to basket");
         }
-
-        return ResponseEntity.ok("Added to basket");
     }
 
     @GetMapping("/basket")

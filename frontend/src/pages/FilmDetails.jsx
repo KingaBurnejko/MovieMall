@@ -49,26 +49,26 @@ function FilmDetails() {
       <h1>{film.title}</h1>
       <div className="film-info">
         <table className="film-details-table">
-  <tbody>
-    <tr>
-      <td><strong>Kategoria</strong></td>
-      <td>{film.category}</td>
-    </tr>
-    <tr>
-      <td><strong>Opis</strong></td>
-      <td>{film.details}</td>
-    </tr>
-    <tr>
-      <td><strong>Rok produkcji</strong></td>
-      <td>{film.production_year}</td>
-    </tr>
-    <tr>
-      <td><strong>Cena</strong></td>
-      <td>{film.price.toFixed(2)} PLN</td>
-    </tr>
-  </tbody>
-</table>
-        <button 
+          <tbody>
+            <tr>
+              <td><strong>Kategoria</strong></td>
+              <td>{film.category}</td>
+            </tr>
+            <tr>
+              <td><strong>Opis</strong></td>
+              <td>{film.details}</td>
+            </tr>
+            <tr>
+              <td><strong>Rok produkcji</strong></td>
+              <td>{film.production_year}</td>
+            </tr>
+            <tr>
+              <td><strong>Cena</strong></td>
+              <td>{film.price.toFixed(2)} PLN</td>
+            </tr>
+          </tbody>
+        </table>
+        <button
           onClick={addToBasket}
           className="add-to-basket-btn"
           title="Dodaj do koszyka"

@@ -92,13 +92,12 @@ function Films() {
               <td>{movie.category}</td>
               <td>{movie.price.toFixed(2)} PLN</td>
               <td>
-                <button 
+                <button
                   onClick={() => addToBasket(movie.id)}
                   className="add-to-basket-btn"
                   title="Dodaj do koszyka"
                 >
-                  <FaShoppingCart /> {/* Ikona koszyka */}
-                  {/* Lub strzałka: <FaArrowRight /> */}
+                  <FaShoppingCart />
                 </button>
               </td>
             </tr>

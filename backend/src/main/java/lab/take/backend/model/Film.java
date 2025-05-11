@@ -1,6 +1,7 @@
 package lab.take.backend.model;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
 @Entity
