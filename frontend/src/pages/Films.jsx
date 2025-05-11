@@ -1,41 +1,109 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { FaShoppingCart, FaArrowRight } from 'react-icons/fa';
+
 function Films() {
+  const [movies, setMovies] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-  const [filmy, setFilmy] = useState([]);
+  const fetchFilms = async () => {
+    try {
+      const url = selectedCategory
+        ? `http://localhost:8080/api/films/${selectedCategory}`
+        : `http://localhost:8080/api/films`;
+      const response = await axios.get(url);
+      setMovies(response.data);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  };
 
-const dodajDoKoszyka = async (filmId) => {
-    const response = await axios.post(
-      `http://localhost:8080/api/basket/add/${filmId}`,
-      {},
-      {
-        withCredentials: true,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
-    alert(response.data);
-};
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/categories');
+      setCategories(response.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  const addToBasket = async (movieId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/basket/add/${movieId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+      alert(response.data);
+    } catch (error) {
+      alert('Error while adding to basket');
+    }
+  };
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/films')
-      .then(response => setFilmy(response.data))
-      .catch(error => console.error('Error:', error));
+    fetchCategories();
   }, []);
 
+  useEffect(() => {
+    fetchFilms();
+  }, [selectedCategory]);
+
   return (
-    <div>
+    <div className="films-container">
       <h1>Katalog filmów</h1>
-      {filmy.map(film => (
-        <div key={film.id}>
-          <h3>
-            <Link to={`/film/${film.id}`}>{film.title}</Link>
-          </h3>
-          <p>Kategoria: {film.category}</p>
-          <button onClick={() => dodajDoKoszyka(film.id)}>Dodaj do koszyka</button>
-          
-        </div>
-      ))}
+
+      <div className="filter-section">
+        <label htmlFor="category">Filtruj kategorię: </label>
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="">Wszystkie</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <table className="movies-table">
+        <thead>
+          <tr>
+            <th>Tytuł</th>
+            <th>Kategoria</th>
+            <th>Cena</th>
+            <th>Dodaj do koszyka</th>
+          </tr>
+        </thead>
+        <tbody>
+          {movies.map((movie) => (
+            <tr key={movie.id}>
+              <td>
+                <Link to={`/film/${movie.id}`}>{movie.title}</Link>
+              </td>
+              <td>{movie.category}</td>
+              <td>{movie.price} PLN</td>
+              <td>
+                <button 
+                  onClick={() => addToBasket(movie.id)}
+                  className="add-to-basket-btn"
+                  title="Dodaj do koszyka"
+                >
+                  <FaShoppingCart /> {/* Ikona koszyka */}
+                  {/* Lub strzałka: <FaArrowRight /> */}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

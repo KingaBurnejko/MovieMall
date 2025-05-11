@@ -93,4 +93,9 @@ public class FilmController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/categories")
+    public List<String> getAllCategories() {
+        return filmRepository.findAllDistinctCategories();
+    }
+
 }
