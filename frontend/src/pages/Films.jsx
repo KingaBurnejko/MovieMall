@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaShoppingCart, FaArrowRight } from 'react-icons/fa';
+import './../styles/Films.css';
 
 function Films() {
   const [movies, setMovies] = useState([]);
@@ -89,7 +90,7 @@ function Films() {
                 <Link to={`/film/${movie.id}`}>{movie.title}</Link>
               </td>
               <td>{movie.category}</td>
-              <td>{movie.price} PLN</td>
+              <td>{movie.price.toFixed(2)} PLN</td>
               <td>
                 <button 
                   onClick={() => addToBasket(movie.id)}

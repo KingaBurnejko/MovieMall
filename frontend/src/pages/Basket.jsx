@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaTrash, FaShoppingCart } from 'react-icons/fa';
+import './../styles/Basket.css';
 
 function Basket() {
   const [basket, setBasket] = useState([]);

@@ -7,16 +7,23 @@ import './App.css';
 function App() {
   return (
     <Router>
-      <nav className="nav">
-        <Link to="/">Filmy</Link> 
-        <Link to="/basket">Koszyk</Link>
-      </nav>
-      
-      <Routes>
-        <Route path="/" element={<Films />} />
-        <Route path="/basket" element={<Basket />} />
-        <Route path="/film/:id" element={<FilmDetails />} />
-      </Routes>
+      <div className="app-container">
+        <nav className="nav-bar">
+          <Link to="/" className="app-name">MovieMall</Link>
+          <div className="nav-links">
+            <Link to="/">Katalog filmów</Link>
+            <Link to="/basket">Koszyk</Link>
+          </div>
+        </nav>
+
+        <div className="content-container">
+          <Routes>
+            <Route path="/" element={<Films />} />
+            <Route path="/basket" element={<Basket />} />
+            <Route path="/film/:id" element={<FilmDetails />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }

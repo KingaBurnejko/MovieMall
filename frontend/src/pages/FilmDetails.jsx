@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaShoppingCart } from 'react-icons/fa';
+import './../styles/FilmDetails.css';
 
 function FilmDetails() {
   const { id } = useParams();
@@ -50,19 +51,19 @@ function FilmDetails() {
         <table className="film-details-table">
   <tbody>
     <tr>
-      <td><strong>Kategoria:</strong></td>
+      <td><strong>Kategoria</strong></td>
       <td>{film.category}</td>
     </tr>
     <tr>
-      <td><strong>Opis:</strong></td>
+      <td><strong>Opis</strong></td>
       <td>{film.details}</td>
     </tr>
     <tr>
-      <td><strong>Rok produkcji:</strong></td>
+      <td><strong>Rok produkcji</strong></td>
       <td>{film.production_year}</td>
     </tr>
     <tr>
-      <td><strong>Cena:</strong></td>
+      <td><strong>Cena</strong></td>
       <td>{film.price.toFixed(2)} PLN</td>
     </tr>
   </tbody>
